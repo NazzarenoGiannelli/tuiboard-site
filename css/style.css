@@ -163,7 +163,9 @@ h2 { font-size: clamp(22px, 3vw, 32px); line-height: 1.2; font-weight: 700; marg
 .term__tab.is-active { color: var(--yellow); background: rgba(234,246,173,0.06); }
 .term__file { color: var(--dim); font-size: 12px; }
 .termframe--flagship { box-shadow: 0 0 0 1px rgba(126,182,214,.18), 0 20px 60px -34px rgba(126,182,214,.4); }
-.term__body { padding: 16px; min-height: 248px; font-size: 13px; position: relative; }
+/* Fixed height (not min-height) so every panel — including the taller agenda —
+   occupies the exact same box: switching tabs no longer nudges the layout. */
+.term__body { padding: 16px; height: 264px; overflow: hidden; font-size: 13px; position: relative; }
 .panel { display: none; }
 .panel.is-active { display: block; }
 .panel__prompt { margin-top: 12px; color: var(--dim); }
