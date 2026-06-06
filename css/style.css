@@ -242,10 +242,18 @@ h2 { font-size: clamp(22px, 3vw, 32px); line-height: 1.2; font-weight: 700; marg
 
 /* ============================== SHOWCASE ============================== */
 .showcase { padding: clamp(40px, 7vh, 80px) 0; }
-.showcase__frame { max-width: 1000px; margin-inline: auto; }
+.showcase__frame {
+  max-width: 1000px; margin-inline: auto;
+  /* the screenshot is background-free (matches the page), so a soft glow lets
+     the terminal "float" off the page instead of blending into it. */
+  box-shadow:
+    0 0 0 1px var(--hair),
+    0 30px 90px -45px rgba(126, 182, 214, 0.45),
+    0 0 80px -24px rgba(234, 246, 173, 0.10);
+}
 .showcase__img { position: relative; width: 100%; background: var(--bg); }
 .showcase__img img { display: block; width: 100%; height: auto; }
-.showcase__img.is-empty { aspect-ratio: 16 / 10; }
+.showcase__img.is-empty { aspect-ratio: 1600 / 873; }
 .showcase__img.is-empty img { display: none; }
 .showcase__img .shot__placeholder { display: none; }
 .showcase__img.is-empty .shot__placeholder { display: flex; }
