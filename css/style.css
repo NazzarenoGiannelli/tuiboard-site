@@ -98,8 +98,11 @@ code, pre { font-family: var(--mono); }
 .btn--dim { color: var(--dim); border-color: var(--hair); }
 .btn--dim:hover { color: var(--text); border-color: var(--dim); }
 .btn--lg { padding: 12px 22px; font-size: 17px; }
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .cta-row--quiet { margin-top: 30px; justify-content: center; }
+/* Hero: keep the three buttons on one line once there's room (phones still wrap). */
+.hero .cta-row .btn { padding: 9px 13px; }
+@media (min-width: 560px) { .hero .cta-row { flex-wrap: nowrap; } }
 
 .eyebrow { color: var(--dim); text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 500; margin: 0 0 12px; }
 h2 { font-size: clamp(22px, 3vw, 32px); line-height: 1.2; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.01em; }

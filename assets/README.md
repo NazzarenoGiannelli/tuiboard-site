@@ -1,13 +1,19 @@
-# Screenshots
+# Assets
 
 The feature sections use built-in faux-terminal panels (no images needed), so
-there's **only one image to provide**:
+the landing needs **just one image**:
 
-| File | Where | What |
-|------|-------|------|
-| `dashboard.png` | the full-width "the whole dashboard" showcase **and** the social/OG preview | The full tuiboard dashboard — the same hero shot used on GitHub. Landscape, ~16:10. |
+| File | Where | Notes |
+|------|-------|-------|
+| `dashboard.jpg` | the full-width "the whole dashboard" showcase **and** the social/OG preview | The full tuiboard dashboard (same hero shot as the GitHub README), resized to 1600px and optimized (~200 KB). |
 
-Until `dashboard.png` exists the showcase shows a tidy placeholder, so the site
-is presentable empty. Drop your GitHub hero screenshot here as `dashboard.png`
-(PNG, ideally ≤ ~600 KB; it's lazy-loaded regardless) and it appears in both
-places automatically.
+It's already in place. To refresh it, drop a new dashboard screenshot and
+re-optimize, e.g.:
+
+```bash
+ffmpeg -y -i source.png -vf "scale=1600:-1:flags=lanczos" -map_metadata -1 -q:v 3 dashboard.jpg
+```
+
+A background-free terminal-only PNG can be swapped in later for a glow treatment.
+
+`fonts/` holds self-hosted JetBrains Mono (woff2, 400/500/700, Latin subset).

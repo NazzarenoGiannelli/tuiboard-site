@@ -13,7 +13,7 @@
 <meta property="og:description" content="A keyboard-first terminal kanban on plain CommonMark files. Planner, calendar-aware agenda (two-way Google Calendar), and live Claude Code sessions — all in one terminal." />
 <meta property="og:url" content="https://tuiboard.nazzareno.xyz" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/dashboard.png" />
+<meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/dashboard.jpg" />
 
 <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="css/style.css" />
@@ -147,7 +147,7 @@
     <div class="term termframe showcase__frame" data-reveal>
       <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — the whole dashboard</span></div>
       <div class="showcase__img">
-        <img src="assets/dashboard.png" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1920" height="1200" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
+        <img src="assets/dashboard.jpg" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1600" height="1000" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
         <span class="shot__placeholder">[ screenshot: full dashboard — drop assets/dashboard.png ]</span>
       </div>
     </div>
@@ -162,7 +162,7 @@
     <div class="feat__copy">
       <p class="eyebrow">01 · the board</p>
       <h2>A kanban board that lives in a text file.</h2>
-      <p>Every column is a markdown heading. Every card is a task list item. tuiboard renders it as a fast, navigable board — move cards, set due dates, flag priority — and writes it straight back to disk as CommonMark. Quit the app and you still have a perfectly readable to-do list. Open it in Obsidian, <code>cat</code> it, diff it in git. Nothing is trapped.</p>
+      <p>Every column is a markdown heading, every card a task list item. tuiboard renders it as a fast, navigable board — move cards, set due dates, flag priority — and writes it straight back to disk. Quit, and you still have a readable to-do list you can open in Obsidian, <code>cat</code>, or diff in git. Nothing is trapped.</p>
       <ul class="bul">
         <li>Obsidian Tasks emoji vocabulary out of the box — ⏳ scheduled · 📅 due · 🔼 priority · <code>- [x]</code> done</li>
         <li>Multiple boards, switch with a keystroke; filter, reorder, archive</li>
@@ -228,7 +228,7 @@
     <div class="feat__copy">
       <p class="eyebrow">02 · today / tomorrow</p>
       <h2>One place for everything you said you'd do.</h2>
-      <p>Flip on the planner and tuiboard scans every board you have, pulls out what's scheduled, and lays Today and Tomorrow side by side. No re-typing, no second app — it just reads the ⏳ and 📅 dates you already wrote. It's the answer to "what am I actually doing today?" without leaving the terminal.</p>
+      <p>Flip on the planner and tuiboard scans every board, pulls out what's scheduled, and lays Today and Tomorrow side by side. No re-typing, no second app — it just reads the ⏳ and 📅 dates you already wrote.</p>
       <ul class="bul">
         <li>Aggregates ⏳ scheduled + 📅 due across all boards</li>
         <li>Today / Tomorrow split, sorted and de-duplicated</li>
@@ -252,7 +252,7 @@
     </div>
     <div class="feat__grid wrap--flush" data-reveal-group>
       <div class="feat__copy">
-        <p>The agenda lays your day on a 24-hour rail and overlays your Google Calendar or Microsoft 365 events on top of your scheduled tasks. As of v0.8 it's no longer read-only — create, edit and delete Google Calendar events inline: set the title, time, date, all-day flag, and which calendar it lands on. Your credentials and tokens stay on your machine; write scope is opt-in, so read-only users never grant it.</p>
+        <p>The agenda lays your day on a 24-hour rail and overlays your Google or Microsoft 365 events on your scheduled tasks. As of v0.8 it's two-way — create, edit and delete Google events inline: title, time, date, all-day, target calendar. Your tokens stay on your machine, and write access is opt-in.</p>
         <ul class="bul">
           <li>Google + Microsoft 365 events overlaid on a 24h timeline</li>
           <li>Create / edit / delete Google events inline — keys: <code>n</code> new · <code>e</code> edit · <code>d</code> delete</li>
@@ -299,7 +299,7 @@
     <div class="feat__copy">
       <p class="eyebrow">04 · live agents</p>
       <h2>See every Claude Code session you're running. Resume one with Enter.</h2>
-      <p>tuiboard discovers your local Claude Code sessions and shows them live — status, the git branch each is on, and when it last did something. Hit Enter on any row and you're back in that session. Your board, your day, and your agents finally sit in one window.</p>
+      <p>tuiboard finds your local Claude Code sessions and shows them live — status, git branch, last activity. Hit Enter on a row and you're back in that session. Your board, your day, and your agents in one window.</p>
       <ul class="bul">
         <li>Live status, git branch, and last-activity per session</li>
         <li>Press <code>↵</code> to resume any session in place</li>
