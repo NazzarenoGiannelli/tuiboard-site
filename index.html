@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>tuiboard — a terminal kanban board on plain markdown</title>
+<meta name="description" content="A keyboard-first terminal kanban built on plain CommonMark files — with an opt-in day planner, a calendar-aware agenda you can write back to, and a live view of your Claude Code sessions. No database. No lock-in." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230b0d10'/%3E%3Ctext x='2' y='12' font-family='monospace' font-size='11' fill='%23eaf6ad'%3Et%3C/text%3E%3C/svg%3E" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="tuiboard — a terminal kanban board on plain markdown" />
+<meta property="og:description" content="A keyboard-first terminal kanban on plain CommonMark files. Planner, calendar-aware agenda (two-way Google Calendar), and live Claude Code sessions — all in one terminal." />
+<meta property="og:url" content="https://tuiboard.nazzareno.xyz" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<a class="skip-link" href="#install">Skip to install</a>
+
+<!-- ============================== HERO ============================== -->
+<header class="hero" id="top">
+  <div class="hero__scanline" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="hero__grid wrap">
+    <!-- ZONE A -->
+    <div class="hero__a">
+      <h1 class="wordmark-h1">
+        <pre class="wordmark" role="img" aria-label="tuiboard" data-reveal="wordmark"> _       _ _                 _
+| |_ _ _|_| |_ ___ ___ ___ _| |
+|  _| | | | . | . | .'|  _| . |
+|_| |___|_|___|___|__,|_| |___|</pre>
+      </h1>
+
+      <p class="bootline" data-boot>
+        <span class="bootline__text">booting tuiboard v0.8.3 ............ ready</span><span class="cursor" aria-hidden="true">▋</span>
+      </p>
+
+      <p class="lede">Your kanban board is just markdown. Run it in the terminal.</p>
+      <p class="sub">A keyboard-first kanban TUI built on plain CommonMark files — with an opt-in day planner, a calendar-aware agenda you can write back to, and a live view of your Claude Code sessions. No database. No lock-in. Your files stay yours.</p>
+
+      <div class="install-line" data-copy-root>
+        <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
+        <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy install command">[ copy ]</button>
+      </div>
+      <p class="note">requires Bun ≥ 1.2 · Linux · macOS · Windows · keyboard-first, full mouse support</p>
+
+      <div class="cta-row">
+        <a class="btn btn--primary" href="#install">[ Get started ]</a>
+        <a class="btn btn--blue" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">[ ★ GitHub ]</a>
+        <a class="btn btn--dim" href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener">[ ⬇ npm ]</a>
+      </div>
+    </div>
+
+    <!-- ZONE B : faux terminal -->
+    <div class="hero__b">
+      <div class="term" data-term>
+        <div class="term__bar">
+          <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <div class="term__tabs" role="tablist" aria-label="tuiboard panels">
+            <button class="term__tab is-active" role="tab" data-tab="kanban" aria-selected="true">kanban</button>
+            <button class="term__tab" role="tab" data-tab="planner" aria-selected="false">planner</button>
+            <button class="term__tab" role="tab" data-tab="agenda" aria-selected="false">agenda</button>
+            <button class="term__tab" role="tab" data-tab="agents" aria-selected="false">agents</button>
+          </div>
+        </div>
+        <div class="term__body">
+          <!-- kanban -->
+          <div class="panel is-active" data-panel="kanban">
+            <div class="kb">
+              <div class="kb__col"><div class="kb__h">Backlog</div>
+                <div class="kb__c">USD pipeline notes <span class="em">⏳</span> 06-20</div>
+                <div class="kb__c">Refactor parser</div>
+              </div>
+              <div class="kb__col"><div class="kb__h">In Progress</div>
+                <div class="kb__c">Ship v0.8 agenda write <span class="em">📅</span> 06-12 <span class="em">🔼</span></div>
+                <div class="kb__c">Boot splash polish</div>
+              </div>
+              <div class="kb__col"><div class="kb__h">Done</div>
+                <div class="kb__c done">Wire Google OAuth</div>
+                <div class="kb__c done">All-day events</div>
+              </div>
+            </div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
+          <!-- planner -->
+          <div class="panel" data-panel="planner">
+            <div class="pl">
+              <div class="pl__col"><div class="pl__h">Today</div>
+                <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
+                <div class="pl__r"><span class="t">14:30</span> Demo video record</div>
+                <div class="pl__r"><span class="t">⏳</span> Reply to Christina</div>
+              </div>
+              <div class="pl__col"><div class="pl__h">Tomorrow</div>
+                <div class="pl__r"><span class="t">📅</span> CGI asset handoff</div>
+                <div class="pl__r"><span class="t">⏳</span> USD pipeline notes</div>
+              </div>
+            </div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
+          <!-- agenda -->
+          <div class="panel" data-panel="agenda">
+            <div class="ag">
+              <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
+              <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
+              <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
+              <div class="ag__row"><span class="ag__t">16</span><span class="ag__rail"></span></div>
+            </div>
+            <div class="panel__hint">n new · e edit · d delete</div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
+          <!-- agents -->
+          <div class="panel" data-panel="agents">
+            <div class="agts">
+              <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
+              <div class="agts__r"><span class="dot"></span> CareTherapy <span class="br">feat/v3</span> <span class="ago">2m</span></div>
+              <div class="agts__r is-sel"><span class="dot"></span> Routine automation <span class="br">main</span> <span class="resume">↵ resume</span></div>
+            </div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="term__cap">live mock — real screenshots drop into the sections below</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== TRUST STRIP ============================== -->
+<section class="trust" aria-label="Why it stays yours">
+  <ul class="trust__list" data-trust>
+    <li><span class="ok">[ ok ]</span> <span class="k">your files stay yours     </span> <span class="d">— boards are plain CommonMark .md on your disk</span></li>
+    <li><span class="ok">[ ok ]</span> <span class="k">zero lock-in              </span> <span class="d">— open them in Obsidian, VS Code, vim, any editor</span></li>
+    <li><span class="ok">[ ok ]</span> <span class="k">obsidian tasks vocabulary </span> <span class="d">— ⏳ scheduled · 📅 due · ✅ done · 🔼 priority</span></li>
+    <li><span class="ok">[ ok ]</span> <span class="k">bring your own creds      </span> <span class="d">— your Google / Microsoft 365 tokens stay local</span></li>
+    <li><span class="ok">[ ok ]</span> <span class="k">cross-platform            </span> <span class="d">— Linux · macOS · Windows</span></li>
+    <li><span class="ok">[ ok ]</span> <span class="k">MIT licensed              </span> <span class="d">— keyboard-first, full mouse support</span></li>
+  </ul>
+</section>
+
+<main>
+<!-- ============================== 01 KANBAN ============================== -->
+<section class="feat" id="kanban">
+  <div class="feat__grid wrap" data-reveal-group>
+    <div class="feat__copy">
+      <p class="eyebrow">01 · the board</p>
+      <h2>A kanban board that lives in a text file.</h2>
+      <p>Every column is a markdown heading. Every card is a task list item. tuiboard renders it as a fast, navigable board — move cards, set due dates, flag priority — and writes it straight back to disk as CommonMark. Quit the app and you still have a perfectly readable to-do list. Open it in Obsidian, <code>cat</code> it, diff it in git. Nothing is trapped.</p>
+      <ul class="bul">
+        <li>Obsidian Tasks emoji vocabulary out of the box — ⏳ scheduled · 📅 due · 🔼 priority · <code>- [x]</code> done</li>
+        <li>Multiple boards, switch with a keystroke; filter, reorder, archive</li>
+        <li>Move cards with the keyboard, or drag them with the mouse — your call</li>
+        <li>The file updates as you go, so your editor and your TUI never disagree</li>
+      </ul>
+      <div class="codeproof">
+<pre>## In Progress
+- [ ] Ship v0.8 agenda write 📅 2026-06-12 🔼
+- [x] Wire Google OAuth
+## Backlog
+- [ ] USD pipeline notes ⏳ 2026-06-20</pre>
+      </div>
+      <p class="caption">↳ this markdown renders as the board on the right</p>
+    </div>
+    <figure class="shot" data-shot>
+      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — board.md</span></div>
+      <div class="shot__img">
+        <img src="assets/shot-kanban.png" alt="tuiboard kanban view — three columns of markdown task cards in a terminal" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
+        <span class="shot__placeholder">[ screenshot: kanban view ]</span>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================== 02 PLANNER ============================== -->
+<section class="feat feat--rev" id="planner">
+  <div class="feat__grid wrap" data-reveal-group>
+    <figure class="shot" data-shot>
+      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — planner · today / tomorrow</span></div>
+      <div class="shot__img">
+        <img src="assets/shot-planner.png" alt="tuiboard planner — Today and Tomorrow aggregated across boards" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
+        <span class="shot__placeholder">[ screenshot: planner ]</span>
+      </div>
+    </figure>
+    <div class="feat__copy">
+      <p class="eyebrow">02 · today / tomorrow</p>
+      <h2>One place for everything you said you'd do.</h2>
+      <p>Flip on the planner and tuiboard scans every board you have, pulls out what's scheduled, and lays Today and Tomorrow side by side. No re-typing, no second app — it just reads the ⏳ and 📅 dates you already wrote. It's the answer to "what am I actually doing today?" without leaving the terminal.</p>
+      <ul class="bul">
+        <li>Aggregates ⏳ scheduled + 📅 due across all boards</li>
+        <li>Today / Tomorrow split, sorted and de-duplicated</li>
+        <li>Stays in sync — edit a card anywhere and the planner updates</li>
+        <li>Pure opt-in: run tuiboard as a plain kanban and never see it</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 AGENDA ============================== -->
+<section class="feat" id="agenda">
+  <div class="wrap">
+    <div class="feat__head" data-reveal-group>
+      <p class="eyebrow">03 · 24-hour agenda</p>
+      <h2>A real agenda — that writes back to your calendar.</h2>
+    </div>
+    <div class="callout" data-reveal>
+      <span class="callout__tag"><span class="callout__dot" aria-hidden="true">●</span> new in v0.8</span>
+      <span>two-way Google Calendar: create · edit · delete events without leaving the terminal.</span>
+    </div>
+    <div class="feat__grid wrap--flush" data-reveal-group>
+      <div class="feat__copy">
+        <p>The agenda lays your day on a 24-hour rail and overlays your Google Calendar or Microsoft 365 events on top of your scheduled tasks. As of v0.8 it's no longer read-only — create, edit and delete Google Calendar events inline: set the title, time, date, all-day flag, and which calendar it lands on. Your credentials and tokens stay on your machine; write scope is opt-in, so read-only users never grant it.</p>
+        <ul class="bul">
+          <li>Google + Microsoft 365 events overlaid on a 24h timeline</li>
+          <li>Create / edit / delete Google events inline — keys: <code>n</code> new · <code>e</code> edit · <code>d</code> delete</li>
+          <li>Pick target calendar, time, date, all-day flag</li>
+          <li>Bring-your-own-credentials, stored locally, write scope opt-in</li>
+        </ul>
+      </div>
+      <figure class="shot shot--flagship" data-shot>
+        <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — agenda · 24h</span></div>
+        <div class="shot__img">
+          <img src="assets/shot-agenda.png" alt="tuiboard 24-hour agenda with Google and Microsoft 365 calendar events overlaid, and the inline event editor" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
+          <span class="shot__placeholder">[ screenshot: agenda · 24h ]</span>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 AGENTS ============================== -->
+<section class="feat feat--rev" id="agents">
+  <div class="feat__grid wrap" data-reveal-group>
+    <figure class="shot" data-shot>
+      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — agents · sessions</span></div>
+      <div class="shot__img">
+        <img src="assets/shot-agents.png" alt="tuiboard live agents panel — Claude Code sessions with status, branch and last activity" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
+        <span class="shot__placeholder">[ screenshot: agents · sessions ]</span>
+      </div>
+    </figure>
+    <div class="feat__copy">
+      <p class="eyebrow">04 · live agents</p>
+      <h2>See every Claude Code session you're running. Resume one with Enter.</h2>
+      <p>tuiboard discovers your local Claude Code sessions and shows them live — status, the git branch each is on, and when it last did something. Hit Enter on any row and you're back in that session. Your board, your day, and your agents finally sit in one window.</p>
+      <ul class="bul">
+        <li>Live status, git branch, and last-activity per session</li>
+        <li>Press <code>↵</code> to resume any session in place</li>
+        <li>Configurable resume command (e.g. open in WezTerm)</li>
+        <li>Local-only — nothing leaves your machine</li>
+      </ul>
+      <p class="maker">This is the panel that started it all — built to run my own multi-agent days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== COMPOSE ============================== -->
+<section class="compose">
+  <div class="wrap compose__inner" data-reveal-group>
+    <h2>One board, or all four. Your call.</h2>
+    <p class="sub">Start as a plain kanban. Switch on the planner when you want a daily focus, the agenda when you live by your calendar, the agents panel when you're deep in Claude Code. Any mix — it's the same markdown underneath.</p>
+    <div class="toggles" data-toggles>
+<pre><span class="tg" data-tg>[x]</span> kanban   ......  always on
+<span class="tg" data-tg>[x]</span> planner  ......  today / tomorrow
+<span class="tg" data-tg>[x]</span> agenda   ......  24h + calendar
+<span class="tg" data-tg>[ ]</span> agents   ......  claude code sessions</pre>
+    </div>
+    <p class="caption">flip panels on and off — your layout, your call.</p>
+  </div>
+</section>
+
+<!-- ============================== 05 INSTALL ============================== -->
+<section class="install" id="install">
+  <div class="wrap install__inner">
+    <div class="feat__head" data-reveal-group>
+      <p class="eyebrow">05 · install</p>
+      <h2>Up and running in one line.</h2>
+    </div>
+
+    <div class="cmd cmd--primary" data-copy-root>
+      <span class="cmd__tab">global</span>
+      <div class="cmd__body">
+        <code><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
+        <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy global install">[ copy ]</button>
+      </div>
+      <p class="cmd__note">↳ then run <code>tuiboard</code> anywhere</p>
+    </div>
+
+    <div class="cmd" data-copy-root>
+      <span class="cmd__tab">no-install</span>
+      <div class="cmd__body">
+        <code><span class="prompt">$</span> <span class="pkg">bunx</span> tuiboard</code>
+        <button class="copybtn" type="button" data-copy="bunx tuiboard" aria-label="Copy bunx command">[ copy ]</button>
+      </div>
+      <p class="cmd__note">↳ try it without installing</p>
+    </div>
+
+    <div class="cmd" data-copy-root>
+      <span class="cmd__tab">from source</span>
+      <div class="cmd__body">
+        <code><span class="prompt">$</span> bun install -g <span class="pkg">github:NazzarenoGiannelli/tuiboard</span></code>
+        <button class="copybtn" type="button" data-copy="bun install -g github:NazzarenoGiannelli/tuiboard" aria-label="Copy source install">[ copy ]</button>
+      </div>
+      <p class="cmd__note">↳ latest from main</p>
+    </div>
+
+    <p class="note install__foot">Requires Bun ≥ 1.2. Calendar features need a Google or Microsoft 365 connection — set up with <code>tuiboard calendar-setup</code>; credentials stay local. Then run <code>tuiboard</code> in any folder with markdown boards, or let it scaffold one.</p>
+
+    <div class="cta-row cta-row--quiet">
+      <a class="btn btn--blue" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">[ ★ GitHub ]</a>
+      <a class="btn btn--dim" href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener">[ ⬇ npm ]</a>
+      <a class="btn btn--dim" href="https://github.com/NazzarenoGiannelli/tuiboard/blob/main/LICENSE" target="_blank" rel="noopener">[ MIT license ]</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FINAL CTA ============================== -->
+<section class="final">
+  <div class="wrap final__inner" data-reveal-group>
+    <h2>Plain text in. Your day, organized. Nothing locked away.<span class="cursor" aria-hidden="true">▋</span></h2>
+    <p class="sub">Run it as a pure kanban, or turn on the planner, agenda, and agents one at a time. Your board, your files, your terminal.</p>
+    <div class="install-line install-line--center" data-copy-root>
+      <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
+      <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy install command">[ copy ]</button>
+    </div>
+    <a class="btn btn--primary btn--lg" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">[ Get started on GitHub ★ ]</a>
+    <p class="maker maker--center">Built by Nazzareno Giannelli · <a href="https://nazzareno.xyz" target="_blank" rel="noopener">nazzareno.xyz</a></p>
+  </div>
+</section>
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="foot">
+  <div class="wrap foot__top">
+    <div class="foot__sign">
+      <span class="foot__mark">tuiboard<span class="cursor" aria-hidden="true">▋</span></span>
+      <p class="foot__tag">A terminal kanban on plain markdown. Your files stay yours.</p>
+    </div>
+    <nav class="foot__links" aria-label="Footer">
+      <a href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener"><span class="g">›</span> GitHub — github.com/NazzarenoGiannelli/tuiboard</a>
+      <a href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener"><span class="g">›</span> npm — npmjs.com/package/tuiboard</a>
+      <a href="https://github.com/NazzarenoGiannelli/tuiboard/blob/main/LICENSE" target="_blank" rel="noopener"><span class="g">›</span> License — MIT</a>
+      <a href="https://nazzareno.xyz" target="_blank" rel="noopener"><span class="g">›</span> Built by Nazzareno Giannelli — nazzareno.xyz</a>
+    </nav>
+  </div>
+  <div class="wrap foot__bottom">
+    © 2026 Nazzareno Giannelli · MIT Licensed · Built with OpenTUI + SolidJS on Bun · tuiboard.nazzareno.xyz<span class="cursor" aria-hidden="true">▋</span>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
