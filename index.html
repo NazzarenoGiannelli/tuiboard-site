@@ -13,6 +13,7 @@
 <meta property="og:description" content="A keyboard-first terminal kanban on plain CommonMark files. Planner, calendar-aware agenda (two-way Google Calendar), and live Claude Code sessions — all in one terminal." />
 <meta property="og:url" content="https://tuiboard.nazzareno.xyz" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/dashboard.png" />
 
 <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="css/style.css" />
@@ -92,10 +93,10 @@
               <div class="pl__col"><div class="pl__h">Today</div>
                 <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
                 <div class="pl__r"><span class="t">14:30</span> Demo video record</div>
-                <div class="pl__r"><span class="t">⏳</span> Reply to Christina</div>
+                <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
               </div>
               <div class="pl__col"><div class="pl__h">Tomorrow</div>
-                <div class="pl__r"><span class="t">📅</span> CGI asset handoff</div>
+                <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
                 <div class="pl__r"><span class="t">⏳</span> USD pipeline notes</div>
               </div>
             </div>
@@ -116,8 +117,8 @@
           <div class="panel" data-panel="agents">
             <div class="agts">
               <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
-              <div class="agts__r"><span class="dot"></span> CareTherapy <span class="br">feat/v3</span> <span class="ago">2m</span></div>
-              <div class="agts__r is-sel"><span class="dot"></span> Routine automation <span class="br">main</span> <span class="resume">↵ resume</span></div>
+              <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
+              <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
             </div>
             <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
           </div>
@@ -138,6 +139,20 @@
     <li><span class="ok">[ ok ]</span> <span class="k">cross-platform            </span> <span class="d">— Linux · macOS · Windows</span></li>
     <li><span class="ok">[ ok ]</span> <span class="k">MIT licensed              </span> <span class="d">— keyboard-first, full mouse support</span></li>
   </ul>
+</section>
+
+<!-- ============================== SHOWCASE (the one real screenshot) ============================== -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="term termframe showcase__frame" data-reveal>
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — the whole dashboard</span></div>
+      <div class="showcase__img">
+        <img src="assets/dashboard.png" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1920" height="1200" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
+        <span class="shot__placeholder">[ screenshot: full dashboard — drop assets/dashboard.png ]</span>
+      </div>
+    </div>
+    <p class="term__cap">the real thing — all four zones in one terminal</p>
+  </div>
 </section>
 
 <main>
@@ -163,26 +178,53 @@
       </div>
       <p class="caption">↳ this markdown renders as the board on the right</p>
     </div>
-    <figure class="shot" data-shot>
-      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — board.md</span></div>
-      <div class="shot__img">
-        <img src="assets/shot-kanban.png" alt="tuiboard kanban view — three columns of markdown task cards in a terminal" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
-        <span class="shot__placeholder">[ screenshot: kanban view ]</span>
+    <div class="term termframe feat__visual">
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — board.md</span></div>
+      <div class="term__body">
+        <div class="panel is-active">
+          <div class="kb">
+            <div class="kb__col"><div class="kb__h">Backlog</div>
+              <div class="kb__c">Pipeline refactor notes <span class="em">⏳</span> 06-20</div>
+              <div class="kb__c">Refactor parser</div>
+            </div>
+            <div class="kb__col"><div class="kb__h">In Progress</div>
+              <div class="kb__c">Ship v0.8 agenda write <span class="em">📅</span> 06-12 <span class="em">🔼</span></div>
+              <div class="kb__c">Boot splash polish</div>
+            </div>
+            <div class="kb__col"><div class="kb__h">Done</div>
+              <div class="kb__c done">Wire Google OAuth</div>
+              <div class="kb__c done">All-day events</div>
+            </div>
+          </div>
+          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
       </div>
-    </figure>
+    </div>
   </div>
 </section>
 
 <!-- ============================== 02 PLANNER ============================== -->
 <section class="feat feat--rev" id="planner">
   <div class="feat__grid wrap" data-reveal-group>
-    <figure class="shot" data-shot>
-      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — planner · today / tomorrow</span></div>
-      <div class="shot__img">
-        <img src="assets/shot-planner.png" alt="tuiboard planner — Today and Tomorrow aggregated across boards" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
-        <span class="shot__placeholder">[ screenshot: planner ]</span>
+    <div class="term termframe feat__visual">
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — planner · today / tomorrow</span></div>
+      <div class="term__body">
+        <div class="panel is-active">
+          <div class="pl">
+            <div class="pl__col"><div class="pl__h">Today</div>
+              <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
+              <div class="pl__r"><span class="t">14:30</span> Record demo video</div>
+              <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
+            </div>
+            <div class="pl__col"><div class="pl__h">Tomorrow</div>
+              <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
+              <div class="pl__r"><span class="t">⏳</span> Pipeline refactor notes</div>
+            </div>
+          </div>
+          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
       </div>
-    </figure>
+    </div>
     <div class="feat__copy">
       <p class="eyebrow">02 · today / tomorrow</p>
       <h2>One place for everything you said you'd do.</h2>
@@ -218,13 +260,21 @@
           <li>Bring-your-own-credentials, stored locally, write scope opt-in</li>
         </ul>
       </div>
-      <figure class="shot shot--flagship" data-shot>
-        <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — agenda · 24h</span></div>
-        <div class="shot__img">
-          <img src="assets/shot-agenda.png" alt="tuiboard 24-hour agenda with Google and Microsoft 365 calendar events overlaid, and the inline event editor" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
-          <span class="shot__placeholder">[ screenshot: agenda · 24h ]</span>
+      <div class="term termframe termframe--flagship feat__visual">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agenda · 24h</span></div>
+        <div class="term__body">
+          <div class="panel is-active">
+            <div class="ag">
+              <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
+              <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
+              <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
+              <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
+            </div>
+            <div class="panel__hint">n new · e edit · d delete</div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
         </div>
-      </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -232,13 +282,20 @@
 <!-- ============================== 04 AGENTS ============================== -->
 <section class="feat feat--rev" id="agents">
   <div class="feat__grid wrap" data-reveal-group>
-    <figure class="shot" data-shot>
-      <div class="shot__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="shot__name">tuiboard — agents · sessions</span></div>
-      <div class="shot__img">
-        <img src="assets/shot-agents.png" alt="tuiboard live agents panel — Claude Code sessions with status, branch and last activity" loading="lazy" width="1600" height="1000" onerror="this.closest('.shot__img').classList.add('is-empty')" />
-        <span class="shot__placeholder">[ screenshot: agents · sessions ]</span>
+    <div class="term termframe feat__visual">
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agents · sessions</span></div>
+      <div class="term__body">
+        <div class="panel is-active">
+          <div class="agts">
+            <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
+            <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
+            <div class="agts__r"><span class="dot"></span> docs-site <span class="br">main</span> <span class="ago">12m</span></div>
+            <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
+          </div>
+          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
       </div>
-    </figure>
+    </div>
     <div class="feat__copy">
       <p class="eyebrow">04 · live agents</p>
       <h2>See every Claude Code session you're running. Resume one with Enter.</h2>
