@@ -323,4 +323,5 @@ html.motion .toggles.is-in .tg[data-on="1"] { color: var(--green); }
 /* hero boot reveal (motion only) */
 html.motion .wordmark.is-booting { clip-path: inset(0 0 100% 0); }
 html.motion .wordmark.is-revealed { clip-path: inset(0 0 0 0); transition: clip-path .6s steps(8, end); }
-html.motion .bootline.is-booting .bootline__text { visibility: hidden; }
+html.motion .bootline.is-booting { clip-path: inset(0 100% 0 0); }
+html.motion .bootline.is-revealed { clip-path: inset(0 0 0 0); transition: clip-path .7s steps(26, end); }

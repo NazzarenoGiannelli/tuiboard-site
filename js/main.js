@@ -92,6 +92,23 @@
     if (tg.textContent.indexOf("[x]") !== -1) tg.setAttribute("data-on", "1");
   });
 
+  /* -------- live version: show the latest published tuiboard (always) -------- */
+  (function () {
+    var nodes = document.querySelectorAll("[data-version]");
+    if (!nodes.length) return;
+    function apply(v) {
+      if (!v) return;
+      v = String(v).replace(/^v/, "").trim();
+      if (v) nodes.forEach(function (n) { n.textContent = v; });
+    }
+    try {
+      fetch("https://registry.npmjs.org/tuiboard/latest", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d && d.version) apply(d.version); })
+        .catch(function () { /* keep the hardcoded fallback */ });
+    } catch (e) { /* keep the hardcoded fallback */ }
+  })();
+
   /* ===================== motion-only enhancements ===================== */
   if (!canAnimate) return;
   root.classList.add("motion");
@@ -110,19 +127,18 @@
       .forEach(function (el) { el.classList.add("is-in"); });
   }
 
-  /* hero boot reveal: wordmark wipe + status-line type-on, fully skippable */
+  /* hero boot reveal: wordmark wipe + status-line clip reveal, fully skippable.
+     Uses CSS clip-path (not textContent) so the live [data-version] span is
+     preserved through the animation. */
   var wordmark = document.querySelector("[data-reveal='wordmark']");
   var bootline = document.querySelector("[data-boot]");
-  var bootText = bootline ? bootline.querySelector(".bootline__text") : null;
-  var fullBoot = bootText ? bootText.textContent : "";
   var booted = false;
 
   function settleBoot() {
     if (booted) return;
     booted = true;
     if (wordmark) { wordmark.classList.remove("is-booting"); wordmark.classList.add("is-revealed"); }
-    if (bootline) bootline.classList.remove("is-booting");
-    if (bootText) bootText.textContent = fullBoot;
+    if (bootline) { bootline.classList.remove("is-booting"); bootline.classList.add("is-revealed"); }
     window.removeEventListener("keydown", settleBoot);
     window.removeEventListener("wheel", settleBoot);
     window.removeEventListener("touchstart", settleBoot);
@@ -130,10 +146,9 @@
   }
 
   try {
-    if (wordmark && bootline && bootText) {
+    if (wordmark && bootline) {
       wordmark.classList.add("is-booting");
       bootline.classList.add("is-booting");
-      bootText.textContent = "";
       window.addEventListener("keydown", settleBoot, { passive: true });
       window.addEventListener("wheel", settleBoot, { passive: true });
       window.addEventListener("touchstart", settleBoot, { passive: true });
@@ -142,20 +157,15 @@
       requestAnimationFrame(function () {
         wordmark.classList.remove("is-booting");
         wordmark.classList.add("is-revealed");
-        bootline.classList.remove("is-booting");
-        // type the status line after the wordmark wipe (~600ms)
+        // reveal the status line after the wordmark wipe (~520ms)
         setTimeout(function () {
-          var i = 0;
-          (function type() {
-            if (booted) return;
-            bootText.textContent = fullBoot.slice(0, i);
-            i++;
-            if (i <= fullBoot.length) { setTimeout(type, 16); } else { settleBoot(); }
-          })();
-        }, 560);
+          if (booted) return;
+          bootline.classList.remove("is-booting");
+          bootline.classList.add("is-revealed");
+        }, 520);
       });
       // hard safety: settle no matter what
-      setTimeout(settleBoot, 2600);
+      setTimeout(settleBoot, 2200);
     }
   } catch (e) {
     settleBoot();
