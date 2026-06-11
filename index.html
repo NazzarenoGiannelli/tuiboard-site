@@ -16,172 +16,82 @@
 <meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/dashboard.jpg" />
 
 <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/departure-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 <a class="skip-link" href="#install">Skip to install</a>
 
-<!-- ============================== HERO ============================== -->
-<header class="hero" id="top">
-  <div class="hero__scanline" aria-hidden="true"></div>
-  <div class="hero__glow" aria-hidden="true"></div>
+<!-- CRT atmosphere (fixed, pointer-events none) -->
+<div class="crt" aria-hidden="true">
+  <div class="crt__glow"></div>
+  <div class="crt__noise"></div>
+  <div class="crt__scan"></div>
+  <div class="crt__vignette"></div>
+</div>
 
-  <div class="hero__grid wrap">
-    <!-- ZONE A -->
-    <div class="hero__a">
-      <h1 class="wordmark-h1">
-        <pre class="wordmark" role="img" aria-label="tuiboard" data-reveal="wordmark"> _       _ _                 _
+<!-- boot overlay (fx only; never blocks content existence) -->
+<div class="boot" id="boot" aria-hidden="true">
+  <pre class="boot__log" id="boot-log"></pre>
+</div>
+
+<!-- cursor follower (fine pointer + fx only) -->
+<div class="cur" id="cur" aria-hidden="true">▋</div>
+
+<!-- ============================ TOP BAR ============================ -->
+<div class="bar bar--top" aria-hidden="false">
+  <span class="bar__seg bar__seg--dim">tuiboard&nbsp;<span class="bar__path">— ~/landing</span></span>
+  <span class="bar__spacer"></span>
+  <button class="fx" id="fx-toggle" type="button" aria-pressed="false" title="Toggle page animations (overrides system reduced-motion)">fx: <span data-fx-state>off</span></button>
+  <a class="bar__seg bar__link" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">github ↗</a>
+</div>
+
+<!-- ============================== HERO ============================== -->
+<header class="hero" id="intro">
+  <h1 class="wordmark-h1">
+    <pre class="wordmark" role="img" aria-label="tuiboard" data-wm> _       _ _                 _
 | |_ _ _|_| |_ ___ ___ ___ _| |
 |  _| | | | . | . | .'|  _| . |
 |_| |___|_|___|___|__,|_| |___|</pre>
-      </h1>
+  </h1>
 
-      <p class="bootline" data-boot>
-        <span class="bootline__text">booting tuiboard v<span data-version>0.8.3</span> ............ ready</span><span class="cursor" aria-hidden="true">▋</span>
-      </p>
+  <p class="bootline" data-line>
+    <span class="dimx">$</span> booting tuiboard v<span data-version>0.8.3</span> ............ <span class="okx">ready</span><span class="cursor" aria-hidden="true">▋</span>
+  </p>
 
-      <p class="lede">Your kanban board is just markdown. Run it in the terminal.</p>
-      <p class="sub">A keyboard-first kanban TUI built on plain CommonMark files — with an opt-in day planner, a calendar-aware agenda you can write back to, and a live view of your Claude Code sessions. No database. No lock-in. Your files stay yours.</p>
+  <p class="lede glitch" data-line>Your kanban board is just markdown.<br />Run it in the terminal.</p>
 
-      <div class="install-line" data-copy-root>
-        <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
-        <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy install command">[ copy ]</button>
-      </div>
-      <p class="note">requires Bun ≥ 1.2 · Linux · macOS · Windows · keyboard-first, full mouse support</p>
+  <p class="sub" data-line>Keyboard-first kanban on plain CommonMark files — with an opt-in day planner,
+  a calendar-aware agenda you can write back to, and a live view of your Claude Code
+  sessions. No database. No lock-in. Your files stay yours.</p>
 
-      <div class="cta-row">
-        <a class="btn btn--primary" href="#install">[ Get started ]</a>
-        <a class="btn btn--blue" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">[ ★ GitHub ]</a>
-        <a class="btn btn--dim" href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener">[ ⬇ npm ]</a>
-      </div>
-    </div>
+  <div class="install-line" data-line data-copy-root>
+    <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
+    <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy install command">[ copy ]</button>
+  </div>
+  <p class="note" data-line>requires Bun ≥ 1.2 · Linux · macOS · Windows · keyboard-first, full mouse support</p>
 
-    <!-- ZONE B : faux terminal -->
-    <div class="hero__b">
-      <div class="term" data-term>
-        <div class="term__bar">
-          <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <div class="term__tabs" role="tablist" aria-label="tuiboard panels">
-            <button class="term__tab is-active" role="tab" data-tab="kanban" aria-selected="true">kanban</button>
-            <button class="term__tab" role="tab" data-tab="planner" aria-selected="false">planner</button>
-            <button class="term__tab" role="tab" data-tab="agenda" aria-selected="false">agenda</button>
-            <button class="term__tab" role="tab" data-tab="agents" aria-selected="false">agents</button>
-          </div>
-        </div>
-        <div class="term__body">
-          <!-- kanban -->
-          <div class="panel is-active" data-panel="kanban">
-            <div class="kb">
-              <div class="kb__col"><div class="kb__h">Backlog</div>
-                <div class="kb__c">USD pipeline notes <span class="em">⏳</span> 06-20</div>
-                <div class="kb__c">Refactor parser</div>
-              </div>
-              <div class="kb__col"><div class="kb__h">In Progress</div>
-                <div class="kb__c">Ship v0.8 agenda write <span class="em">📅</span> 06-12 <span class="em">🔼</span></div>
-                <div class="kb__c">Boot splash polish</div>
-              </div>
-              <div class="kb__col"><div class="kb__h">Done</div>
-                <div class="kb__c done">Wire Google OAuth</div>
-                <div class="kb__c done">All-day events</div>
-              </div>
-            </div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
-          <!-- planner -->
-          <div class="panel" data-panel="planner">
-            <div class="pl">
-              <div class="pl__col"><div class="pl__h">Today</div>
-                <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
-                <div class="pl__r"><span class="t">14:30</span> Demo video record</div>
-                <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
-              </div>
-              <div class="pl__col"><div class="pl__h">Tomorrow</div>
-                <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
-                <div class="pl__r"><span class="t">⏳</span> USD pipeline notes</div>
-              </div>
-            </div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
-          <!-- agenda -->
-          <div class="panel" data-panel="agenda">
-            <div class="ag">
-              <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
-              <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
-              <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
-              <div class="ag__row"><span class="ag__t">16</span><span class="ag__rail"></span></div>
-            </div>
-            <div class="panel__hint">n new · e edit · d delete</div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
-          <!-- agents -->
-          <div class="panel" data-panel="agents">
-            <div class="agts">
-              <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
-              <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
-              <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
-            </div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
+  <div class="cta-row" data-line>
+    <a class="btn btn--primary" href="#install">[ Get started ]</a>
+    <a class="btn btn--blue" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">[ ★ GitHub ]</a>
+    <a class="btn btn--dim" href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener">[ ⬇ npm ]</a>
+  </div>
+
+  <!-- faux terminal demo -->
+  <div class="herodemo" data-line>
+    <div class="term term--hero" data-term>
+      <div class="term__bar">
+        <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <div class="term__tabs" role="tablist" aria-label="tuiboard panels">
+          <button class="term__tab is-active" role="tab" data-tab="kanban" aria-selected="true">kanban</button>
+          <button class="term__tab" role="tab" data-tab="planner" aria-selected="false">planner</button>
+          <button class="term__tab" role="tab" data-tab="agenda" aria-selected="false">agenda</button>
+          <button class="term__tab" role="tab" data-tab="agents" aria-selected="false">agents</button>
         </div>
       </div>
-      <p class="term__cap">live mock — click a tab to switch panels</p>
-    </div>
-  </div>
-</header>
-
-<!-- ============================== TRUST STRIP ============================== -->
-<section class="trust" aria-label="Why it stays yours">
-  <ul class="trust__list" data-trust>
-    <li><span class="ok">[ ok ]</span> <span class="k">your files stay yours     </span> <span class="d">— boards are plain CommonMark .md on your disk</span></li>
-    <li><span class="ok">[ ok ]</span> <span class="k">zero lock-in              </span> <span class="d">— open them in Obsidian, VS Code, vim, any editor</span></li>
-    <li><span class="ok">[ ok ]</span> <span class="k">obsidian tasks vocabulary </span> <span class="d">— ⏳ scheduled · 📅 due · ✅ done · 🔼 priority</span></li>
-    <li><span class="ok">[ ok ]</span> <span class="k">bring your own creds      </span> <span class="d">— your Google / Microsoft 365 tokens stay local</span></li>
-    <li><span class="ok">[ ok ]</span> <span class="k">cross-platform            </span> <span class="d">— Linux · macOS · Windows</span></li>
-    <li><span class="ok">[ ok ]</span> <span class="k">MIT licensed              </span> <span class="d">— keyboard-first, full mouse support</span></li>
-  </ul>
-</section>
-
-<!-- ============================== SHOWCASE (the one real screenshot) ============================== -->
-<section class="showcase">
-  <div class="wrap">
-    <div class="term termframe showcase__frame" data-reveal>
-      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — the whole dashboard</span></div>
-      <div class="showcase__img">
-        <img src="assets/dashboard.jpg" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1600" height="873" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
-        <span class="shot__placeholder">[ screenshot: full dashboard — drop assets/dashboard.png ]</span>
-      </div>
-    </div>
-    <p class="term__cap">the real thing — all four zones in one terminal</p>
-  </div>
-</section>
-
-<main>
-<!-- ============================== 01 KANBAN ============================== -->
-<section class="feat" id="kanban">
-  <div class="feat__grid wrap" data-reveal-group>
-    <div class="feat__copy">
-      <p class="eyebrow">01 · the board</p>
-      <h2>A kanban board that lives in a text file.</h2>
-      <p>Every column is a markdown heading, every card a task list item. tuiboard renders it as a fast, navigable board — move cards, set due dates, flag priority — and writes it straight back to disk. Quit, and you still have a readable to-do list you can open in Obsidian, <code>cat</code>, or diff in git. Nothing is trapped.</p>
-      <ul class="bul">
-        <li>Obsidian Tasks emoji vocabulary out of the box — ⏳ scheduled · 📅 due · 🔼 priority · <code>- [x]</code> done</li>
-        <li>Multiple boards, switch with a keystroke; filter, reorder, archive</li>
-        <li>Move cards with the keyboard, or drag them with the mouse — your call</li>
-        <li>The file updates as you go, so your editor and your TUI never disagree</li>
-      </ul>
-      <div class="codeproof">
-<pre>## In Progress
-- [ ] Ship v0.8 agenda write 📅 2026-06-12 🔼
-- [x] Wire Google OAuth
-## Backlog
-- [ ] USD pipeline notes ⏳ 2026-06-20</pre>
-      </div>
-      <p class="caption">↳ this markdown renders as the board on the right</p>
-    </div>
-    <div class="term termframe feat__visual">
-      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — board.md</span></div>
       <div class="term__body">
-        <div class="panel is-active">
+        <!-- kanban -->
+        <div class="panel is-active" data-panel="kanban">
           <div class="kb">
             <div class="kb__col"><div class="kb__h">Backlog</div>
               <div class="kb__c">Pipeline refactor notes <span class="em">⏳</span> 06-20</div>
@@ -198,18 +108,8 @@
           </div>
           <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== 02 PLANNER ============================== -->
-<section class="feat feat--rev" id="planner">
-  <div class="feat__grid wrap" data-reveal-group>
-    <div class="term termframe feat__visual">
-      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — planner · today / tomorrow</span></div>
-      <div class="term__body">
-        <div class="panel is-active">
+        <!-- planner -->
+        <div class="panel" data-panel="planner">
           <div class="pl">
             <div class="pl__col"><div class="pl__h">Today</div>
               <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
@@ -222,6 +122,111 @@
             </div>
           </div>
           <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
+        <!-- agenda -->
+        <div class="panel" data-panel="agenda">
+          <div class="ag">
+            <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
+            <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
+            <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
+            <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
+          </div>
+          <div class="panel__hint">n new · e edit · d delete</div>
+          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
+        <!-- agents -->
+        <div class="panel" data-panel="agents">
+          <div class="agts">
+            <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
+            <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
+            <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
+          </div>
+          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="term__cap">live mock — click a tab, or press <kbd>?</kbd> for keys</p>
+  </div>
+</header>
+
+<!-- ============================ TICKER ============================ -->
+<section class="ticker" aria-label="Why it stays yours">
+  <div class="ticker__track" data-ticker>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> your files stay yours — plain CommonMark .md on disk</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> zero lock-in — open them in Obsidian, VS Code, vim</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> obsidian tasks vocabulary — ⏳ 📅 ✅ 🔼</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> bring your own creds — tokens stay local</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> cross-platform — Linux · macOS · Windows</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> MIT licensed — keyboard-first, full mouse support</span>
+  </div>
+</section>
+
+<!-- ========================= SHOWCASE ========================= -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="term termframe showcase__frame" data-reveal>
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — the whole dashboard</span></div>
+      <div class="showcase__img">
+        <img src="assets/dashboard.jpg" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1600" height="873" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
+        <span class="shot__placeholder">[ screenshot: full dashboard ]</span>
+      </div>
+    </div>
+    <p class="term__cap">the real thing — all four zones in one terminal</p>
+  </div>
+</section>
+
+<main>
+<!-- ============================ 01 BOARD ============================ -->
+<section class="feat" id="board">
+  <span class="ghost" aria-hidden="true">01</span>
+  <div class="feat__grid wrap" data-reveal-group>
+    <div class="feat__copy">
+      <p class="eyebrow">01 · the board</p>
+      <h2>A kanban board that lives in a text file.</h2>
+      <p>Every column is a markdown heading, every card a task list item. tuiboard renders it as a fast, navigable board — move cards, set due dates, flag priority — and writes it straight back to disk. Quit, and you still have a readable to-do list you can open in Obsidian, <code>cat</code>, or diff in git. Nothing is trapped.</p>
+      <ul class="bul">
+        <li>Obsidian Tasks emoji vocabulary out of the box — ⏳ scheduled · 📅 due · 🔼 priority · <code>- [x]</code> done</li>
+        <li>Multiple boards, switch with a keystroke; filter, reorder, archive</li>
+        <li>Move cards with the keyboard, or drag them with the mouse — your call</li>
+        <li>The file updates as you go, so your editor and your TUI never disagree</li>
+      </ul>
+    </div>
+    <div class="feat__visual">
+      <div class="codeproof">
+        <div class="codeproof__bar"><span class="term__file">board.md — the whole database</span></div>
+<pre><span class="ln">1</span> ## In Progress
+<span class="ln">2</span> - [ ] Ship v0.8 agenda write 📅 2026-06-12 🔼
+<span class="ln">3</span> - [x] Wire Google OAuth
+<span class="ln">4</span> ## Backlog
+<span class="ln">5</span> - [ ] USD pipeline notes ⏳ 2026-06-20</pre>
+      </div>
+      <p class="caption caption--tie">↳ this file <em>is</em> the board in the demo above</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 PLANNER ============================ -->
+<section class="feat feat--rev" id="day">
+  <span class="ghost ghost--r" aria-hidden="true">02</span>
+  <div class="feat__grid wrap" data-reveal-group>
+    <div class="feat__visual">
+      <div class="term termframe">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — planner · today / tomorrow</span></div>
+        <div class="term__body term__body--auto">
+          <div class="panel is-active">
+            <div class="pl">
+              <div class="pl__col"><div class="pl__h">Today</div>
+                <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
+                <div class="pl__r"><span class="t">14:30</span> Record demo video</div>
+                <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
+              </div>
+              <div class="pl__col"><div class="pl__h">Tomorrow</div>
+                <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
+                <div class="pl__r"><span class="t">⏳</span> Pipeline refactor notes</div>
+              </div>
+            </div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -239,8 +244,9 @@
   </div>
 </section>
 
-<!-- ============================== 03 AGENDA ============================== -->
-<section class="feat" id="agenda">
+<!-- ============================ 03 AGENDA ============================ -->
+<section class="feat" id="cal">
+  <span class="ghost" aria-hidden="true">03</span>
   <div class="wrap">
     <div class="feat__head" data-reveal-group>
       <p class="eyebrow">03 · 24-hour agenda</p>
@@ -260,18 +266,20 @@
           <li>Bring-your-own-credentials, stored locally, write scope opt-in</li>
         </ul>
       </div>
-      <div class="term termframe termframe--flagship feat__visual">
-        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agenda · 24h</span></div>
-        <div class="term__body">
-          <div class="panel is-active">
-            <div class="ag">
-              <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
-              <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
-              <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
-              <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
+      <div class="feat__visual">
+        <div class="term termframe termframe--flagship">
+          <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agenda · 24h</span></div>
+          <div class="term__body term__body--auto">
+            <div class="panel is-active">
+              <div class="ag">
+                <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
+                <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
+                <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
+                <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
+              </div>
+              <div class="panel__hint">n new · e edit · d delete</div>
+              <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
             </div>
-            <div class="panel__hint">n new · e edit · d delete</div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
           </div>
         </div>
       </div>
@@ -279,26 +287,29 @@
   </div>
 </section>
 
-<!-- ============================== 04 AGENTS ============================== -->
+<!-- ============================ 04 AGENTS ============================ -->
 <section class="feat feat--rev" id="agents">
+  <span class="ghost ghost--r" aria-hidden="true">04</span>
   <div class="feat__grid wrap" data-reveal-group>
-    <div class="term termframe feat__visual">
-      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agents · sessions</span></div>
-      <div class="term__body">
-        <div class="panel is-active">
-          <div class="agts">
-            <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
-            <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
-            <div class="agts__r"><span class="dot"></span> docs-site <span class="br">main</span> <span class="ago">12m</span></div>
-            <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
+    <div class="feat__visual">
+      <div class="term termframe">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agents · sessions</span></div>
+        <div class="term__body term__body--auto">
+          <div class="panel is-active">
+            <div class="agts">
+              <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
+              <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
+              <div class="agts__r"><span class="dot"></span> docs-site <span class="br">main</span> <span class="ago">12m</span></div>
+              <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
+            </div>
+            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
           </div>
-          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
         </div>
       </div>
     </div>
     <div class="feat__copy">
       <p class="eyebrow">04 · live agents</p>
-      <h2>See every Claude Code session you're running. Resume one with Enter.</h2>
+      <h2>Resume every Claude Code session you're running.</h2>
       <p>tuiboard finds your local Claude Code sessions and shows them live — status, git branch, last activity. Hit Enter on a row and you're back in that session. Your board, your day, and your agents in one window.</p>
       <ul class="bul">
         <li>Live status, git branch, and last-activity per session</li>
@@ -311,30 +322,31 @@
   </div>
 </section>
 
-<!-- ============================== COMPOSE ============================== -->
+<!-- ============================ COMPOSE ============================ -->
 <section class="compose">
   <div class="wrap compose__inner" data-reveal-group>
     <h2>One board, or all four. Your call.</h2>
     <p class="sub">Start as a plain kanban. Switch on the planner when you want a daily focus, the agenda when you live by your calendar, the agents panel when you're deep in Claude Code. Any mix — it's the same markdown underneath.</p>
     <div class="toggles" data-toggles>
-<pre><span class="tg" data-tg>[x]</span> kanban   ......  always on
-<span class="tg" data-tg>[x]</span> planner  ......  today / tomorrow
-<span class="tg" data-tg>[x]</span> agenda   ......  24h + calendar
-<span class="tg" data-tg>[ ]</span> agents   ......  claude code sessions</pre>
+      <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> kanban   ......  always on</button>
+      <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> planner  ......  today / tomorrow</button>
+      <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> agenda   ......  24h + calendar</button>
+      <button class="tgrow" type="button" data-on="0" aria-pressed="false"><span class="tg">[ ]</span> agents   ......  claude code sessions</button>
     </div>
-    <p class="caption">flip panels on and off — your layout, your call.</p>
+    <p class="caption">flip panels on and off — your layout, your call. (yes, these click.)</p>
   </div>
 </section>
 
-<!-- ============================== 05 INSTALL ============================== -->
+<!-- ============================ 05 INSTALL ============================ -->
 <section class="install" id="install">
+  <span class="ghost" aria-hidden="true">05</span>
   <div class="wrap install__inner">
     <div class="feat__head" data-reveal-group>
       <p class="eyebrow">05 · install</p>
       <h2>Up and running in one line.</h2>
     </div>
 
-    <div class="cmd cmd--primary" data-copy-root>
+    <div class="cmd cmd--primary" data-copy-root data-reveal>
       <span class="cmd__tab">global</span>
       <div class="cmd__body">
         <code><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
@@ -343,7 +355,7 @@
       <p class="cmd__note">↳ then run <code>tuiboard</code> anywhere</p>
     </div>
 
-    <div class="cmd" data-copy-root>
+    <div class="cmd" data-copy-root data-reveal>
       <span class="cmd__tab">no-install</span>
       <div class="cmd__body">
         <code><span class="prompt">$</span> <span class="pkg">bunx</span> tuiboard</code>
@@ -352,7 +364,7 @@
       <p class="cmd__note">↳ try it without installing</p>
     </div>
 
-    <div class="cmd" data-copy-root>
+    <div class="cmd" data-copy-root data-reveal>
       <span class="cmd__tab">from source</span>
       <div class="cmd__body">
         <code><span class="prompt">$</span> bun install -g <span class="pkg">github:NazzarenoGiannelli/tuiboard</span></code>
@@ -371,10 +383,10 @@
   </div>
 </section>
 
-<!-- ============================== FINAL CTA ============================== -->
+<!-- ============================ FINAL ============================ -->
 <section class="final">
   <div class="wrap final__inner" data-reveal-group>
-    <h2>Plain text in. Your day, organized. Nothing locked away.<span class="cursor" aria-hidden="true">▋</span></h2>
+    <h2>Plain text in. Your day, organized.<br />Nothing locked away.<span class="cursor" aria-hidden="true">▋</span></h2>
     <p class="sub">Run it as a pure kanban, or turn on the planner, agenda, and agents one at a time. Your board, your files, your terminal.</p>
     <div class="install-line install-line--center" data-copy-root>
       <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
@@ -386,7 +398,7 @@
 </section>
 </main>
 
-<!-- ============================== FOOTER ============================== -->
+<!-- ============================ FOOTER ============================ -->
 <footer class="foot">
   <div class="wrap foot__top">
     <div class="foot__sign">
@@ -404,6 +416,37 @@
     © 2026 Nazzareno Giannelli · MIT Licensed · Built with OpenTUI + SolidJS on Bun · tuiboard.nazzareno.xyz<span class="cursor" aria-hidden="true">▋</span>
   </div>
 </footer>
+
+<!-- ============================ BOTTOM BAR ============================ -->
+<div class="bar bar--bottom">
+  <span class="bar__seg bar__seg--dim">tuiboard <span class="okx">v<span data-version>0.8.3</span></span></span>
+  <nav class="bar__panes" aria-label="Sections" data-panes>
+    <a href="#intro" data-pane="intro">1:intro</a>
+    <a href="#board" data-pane="board">2:board</a>
+    <a href="#day" data-pane="day">3:day</a>
+    <a href="#cal" data-pane="cal">4:cal</a>
+    <a href="#agents" data-pane="agents">5:agents</a>
+    <a href="#install" data-pane="install">6:get</a>
+  </nav>
+  <span class="bar__spacer"></span>
+  <span class="bar__seg bar__seg--dim bar__keys"><kbd>?</kbd> keys</span>
+  <span class="bar__seg bar__seg--dim" id="scrollpct">0%</span>
+  <span class="bar__seg" id="clock" aria-hidden="true">--:--</span>
+</div>
+
+<!-- ============================ HELP OVERLAY ============================ -->
+<div class="help" id="help" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" hidden>
+  <div class="help__panel">
+    <div class="help__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard.nazzareno.xyz — keys</span></div>
+    <pre class="help__body">  g    open GitHub repo
+  n    open npm package
+  i    jump to install
+  t    back to top
+  f    toggle fx (animations)
+  ?    toggle this help
+  Esc  close</pre>
+  </div>
+</div>
 
 <script src="js/main.js" defer></script>
 </body>
