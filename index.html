@@ -17,6 +17,19 @@
 
 <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/departure-mono-400.woff2" as="font" type="font/woff2" crossorigin />
+<script>
+  /* Effects are ON by default. Set html.fx before first paint so there's no
+     content flash before the deferred script runs. The safety timeout drops fx
+     if the main script never confirms it ran (js-ready), so content can never
+     get stuck hidden. JS-disabled users skip this entirely and get the static,
+     fully-visible CSS default. Opt out persists in localStorage. */
+  (function () {
+    var d = document.documentElement;
+    try { if (localStorage.getItem("tuiboard-fx") !== "off") d.classList.add("fx"); }
+    catch (e) { d.classList.add("fx"); }
+    setTimeout(function () { if (!d.classList.contains("js-ready")) d.classList.remove("fx"); }, 4000);
+  })();
+</script>
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -42,7 +55,7 @@
 <div class="bar bar--top" aria-hidden="false">
   <span class="bar__seg bar__seg--dim">tuiboard&nbsp;<span class="bar__path">— ~/landing</span></span>
   <span class="bar__spacer"></span>
-  <button class="fx" id="fx-toggle" type="button" aria-pressed="false" title="Toggle page animations (overrides system reduced-motion)">fx: <span data-fx-state>off</span></button>
+  <button class="fx" id="fx-toggle" type="button" aria-pressed="true" title="Toggle page animations (on by default; overrides system reduced-motion)">fx: <span data-fx-state>on</span></button>
   <a class="bar__seg bar__link" href="https://github.com/NazzarenoGiannelli/tuiboard" target="_blank" rel="noopener">github ↗</a>
 </div>
 

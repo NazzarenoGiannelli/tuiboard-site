@@ -1,23 +1,22 @@
 /* tuiboard landing v2 — "CRT phosphor poster".
-   Motion model: the stylesheet's default state is FINAL and fully legible
-   (reduced-motion users miss nothing). JS adds `html.fx` to layer animations,
-   from prefers-reduced-motion XOR the in-page [fx] toggle (localStorage).
+   Motion model: the stylesheet's default state is FINAL and fully legible, so
+   content is never JS-gated for no-JS users. Effects are ON BY DEFAULT for
+   everyone (html.fx, set pre-paint by the inline head script); the in-page [fx]
+   toggle / `f` shortcut is an explicit opt-out, persisted in localStorage —
+   which deliberately overrides the OS prefers-reduced-motion setting.
    Everything interactive (copy, tabs, shortcuts, help) works in BOTH modes. */
 (function () {
   "use strict";
 
   var root = document.documentElement;
+  root.classList.add("js-ready"); // cancels the inline anti-FOUC safety timeout
 
   /* ================= fx system ================= */
   var FX_KEY = "tuiboard-fx";
-  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function fxStored() { try { return localStorage.getItem(FX_KEY); } catch (e) { return null; } }
   function fxOn() {
-    var s = fxStored();
-    if (s === "on") return true;
-    if (s === "off") return false;
-    return !prefersReduced; // default: respect the OS
+    return fxStored() !== "off"; // effects ON by default; only explicit opt-out disables
   }
   function applyFx(animateBoot) {
     var on = fxOn();
@@ -330,10 +329,14 @@
   })();
 
   /* ================= go ================= */
-  applyFx(true);
-  if (!root.classList.contains("fx")) {
-    // fx off: the default CSS is already the final state, but mark classes
-    // anyway so any state-dependent selectors are satisfied.
+  try {
+    applyFx(true);
+    if (!root.classList.contains("fx")) settleAll();
+  } catch (e) {
+    // last-resort safety: never leave content hidden behind a half-run effect
     settleAll();
+    var bootEl = document.getElementById("boot");
+    if (bootEl) bootEl.classList.remove("is-on");
+    document.body.style.overflow = "";
   }
 })();
