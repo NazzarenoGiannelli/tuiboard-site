@@ -51,6 +51,37 @@
     if (wm) { wm.classList.remove("is-booting"); wm.classList.add("is-on"); }
   }
 
+  /* ================= live version (read before anything shows it) =========
+     The npm registry is the source of truth. It usually answers after the
+     first paint, so the last known version is remembered between visits and
+     every place that prints it is a [data-version] node — including lines the
+     boot log writes later, which is why applyVersion re-queries the DOM. */
+  var VERSION_FALLBACK = "0.14.0";
+  var VERSION_KEY = "tuiboard:version";
+  var version = VERSION_FALLBACK;
+
+  function applyVersion(v) {
+    version = v;
+    document.querySelectorAll("[data-version]").forEach(function (n) { n.textContent = v; });
+  }
+
+  (function () {
+    var first = document.querySelector("[data-version]");
+    var known = null;
+    try { known = window.localStorage.getItem(VERSION_KEY); } catch (e) { /* private mode */ }
+    applyVersion(known || (first && first.textContent.trim()) || VERSION_FALLBACK);
+    try {
+      fetch("https://registry.npmjs.org/tuiboard/latest", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.version) return;
+          applyVersion(String(d.version));
+          try { window.localStorage.setItem(VERSION_KEY, version); } catch (e) { /* private mode */ }
+        })
+        .catch(function () { /* whatever is on the page stays */ });
+    } catch (e) { /* whatever is on the page stays */ }
+  })();
+
   /* ================= boot sequence (fx only, skippable) ================= */
   var booted = false;
   function runBoot() {
@@ -63,7 +94,7 @@
     if (!boot || !log || !wm || !hero) { settleAll(); return; }
 
     var LINES = [
-      "tuiboard BIOS v" + version,
+      "tuiboard BIOS v<span data-version>" + version + "</span>",
       "mounting boards .......... <span class=\"okx\">ok</span>",
       "calendar bridge .......... <span class=\"okx\">ok</span>",
       "agents ................... <span class=\"okx\">3 live</span>",
@@ -108,29 +139,14 @@
       if (done) return;
       if (i >= LINES.length) { setTimeout(finish, 220); return; }
       log.innerHTML += (i ? "\n" : "") + LINES[i];
+      // The line is only in the DOM now: if the fetch already answered, the
+      // span it just wrote still holds the older value.
+      applyVersion(version);
       i++;
       setTimeout(nextLine, 150);
     })();
     setTimeout(finish, 2200); // hard safety
   }
-
-  /* ================= live version (always) ================= */
-  var version = "0.8.3";
-  (function () {
-    var nodes = document.querySelectorAll("[data-version]");
-    if (nodes.length) version = nodes[0].textContent.trim() || version;
-    try {
-      fetch("https://registry.npmjs.org/tuiboard/latest", { cache: "no-store" })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (d) {
-          if (d && d.version) {
-            version = String(d.version);
-            nodes.forEach(function (n) { n.textContent = version; });
-          }
-        })
-        .catch(function () { /* fallback stays */ });
-    } catch (e) { /* fallback stays */ }
-  })();
 
   /* ================= copy buttons (always) ================= */
   document.querySelectorAll(".copybtn").forEach(function (btn) {
