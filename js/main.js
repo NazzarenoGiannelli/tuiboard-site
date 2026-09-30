@@ -238,6 +238,24 @@
     vids.forEach(function (v) { io.observe(v); });
   })();
 
+  /* ================= the film: starts on demand, with sound ================= */
+  (function () {
+    var v = document.getElementById("film-video"), b = document.getElementById("film-play");
+    if (!v || !b) return;
+    b.addEventListener("click", function () {
+      v.controls = true;
+      b.hidden = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () { v.controls = true; b.hidden = false; });
+    });
+    v.addEventListener("ended", function () {
+      v.controls = false;
+      v.load();                       // back to the poster
+      b.textContent = "[ ▶ Watch again ]";
+      b.hidden = false;
+    });
+  })();
+
   /* ================= ticker marquee (fx only) ================= */
   var tickerInited = false;
   function initTicker() {
