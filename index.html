@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>tuiboard — a terminal kanban board on plain markdown</title>
-<meta name="description" content="A keyboard-first terminal kanban built on plain CommonMark files — with an opt-in day planner, a calendar-aware agenda you can write back to, and a live view of your Claude Code sessions. No database. No lock-in." />
+<title>tuiboard: a terminal kanban board on plain markdown</title>
+<meta name="description" content="A keyboard-first terminal dashboard on plain CommonMark files: kanban boards, a Today/Tomorrow planner, an agenda you can drag and resize, and one live list of your Claude Code, Codex, OpenCode and Pi sessions. No database. No lock-in." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230b0d10'/%3E%3Ctext x='2' y='12' font-family='monospace' font-size='11' fill='%23eaf6ad'%3Et%3C/text%3E%3C/svg%3E" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="tuiboard — a terminal kanban board on plain markdown" />
-<meta property="og:description" content="A keyboard-first terminal kanban on plain CommonMark files. Planner, calendar-aware agenda (two-way Google Calendar), and live Claude Code sessions — all in one terminal." />
+<meta property="og:title" content="tuiboard: a terminal kanban board on plain markdown" />
+<meta property="og:description" content="Kanban boards on plain markdown, a Today/Tomorrow planner, a drag-and-resize agenda, and every coding agent session (Claude Code, Codex, OpenCode, Pi) in one terminal." />
 <meta property="og:url" content="https://tuiboard.nazzareno.xyz" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/dashboard.jpg" />
+<meta property="og:image" content="https://tuiboard.nazzareno.xyz/assets/media/og.jpg" />
 
 <link rel="preload" href="assets/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/departure-mono-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -69,14 +69,14 @@
   </h1>
 
   <p class="bootline" data-line>
-    <span class="dimx">$</span> booting tuiboard v<span data-version>0.8.3</span> ............ <span class="okx">ready</span><span class="cursor" aria-hidden="true">▋</span>
+    <span class="dimx">$</span> booting tuiboard v<span data-version>0.15.0</span> ............ <span class="okx">ready</span><span class="cursor" aria-hidden="true">▋</span>
   </p>
 
   <p class="lede glitch" data-line>Your kanban board is just markdown.<br />Run it in the terminal.</p>
 
-  <p class="sub" data-line>Keyboard-first kanban on plain CommonMark files — with an opt-in day planner,
-  a calendar-aware agenda you can write back to, and a live view of your Claude Code
-  sessions. No database. No lock-in. Your files stay yours.</p>
+  <p class="sub" data-line>A keyboard-first terminal dashboard on plain CommonMark files: your boards,
+  a Today/Tomorrow planner, an agenda you can drag and resize, and one live list of your
+  coding agents (Claude Code, Codex, OpenCode, Pi). No database. No lock-in. Your files stay yours.</p>
 
   <div class="install-line" data-line data-copy-root>
     <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
@@ -90,75 +90,13 @@
     <a class="btn btn--dim" href="https://www.npmjs.com/package/tuiboard" target="_blank" rel="noopener">[ ⬇ npm ]</a>
   </div>
 
-  <!-- faux terminal demo -->
+  <!-- the real app, recorded from its own headless renderer -->
   <div class="herodemo" data-line>
-    <div class="term term--hero" data-term>
-      <div class="term__bar">
-        <span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <div class="term__tabs" role="tablist" aria-label="tuiboard panels">
-          <button class="term__tab is-active" role="tab" data-tab="kanban" aria-selected="true">kanban</button>
-          <button class="term__tab" role="tab" data-tab="planner" aria-selected="false">planner</button>
-          <button class="term__tab" role="tab" data-tab="agenda" aria-selected="false">agenda</button>
-          <button class="term__tab" role="tab" data-tab="agents" aria-selected="false">agents</button>
-        </div>
-      </div>
-      <div class="term__body">
-        <!-- kanban -->
-        <div class="panel is-active" data-panel="kanban">
-          <div class="kb">
-            <div class="kb__col"><div class="kb__h">Backlog</div>
-              <div class="kb__c">Pipeline refactor notes <span class="em">⏳</span> 06-20</div>
-              <div class="kb__c">Refactor parser</div>
-            </div>
-            <div class="kb__col"><div class="kb__h">In Progress</div>
-              <div class="kb__c">Ship v0.8 agenda write <span class="em">📅</span> 06-12 <span class="em">🔼</span></div>
-              <div class="kb__c">Boot splash polish</div>
-            </div>
-            <div class="kb__col"><div class="kb__h">Done</div>
-              <div class="kb__c done">Wire Google OAuth</div>
-              <div class="kb__c done">All-day events</div>
-            </div>
-          </div>
-          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-        </div>
-        <!-- planner -->
-        <div class="panel" data-panel="planner">
-          <div class="pl">
-            <div class="pl__col"><div class="pl__h">Today</div>
-              <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
-              <div class="pl__r"><span class="t">14:30</span> Record demo video</div>
-              <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
-            </div>
-            <div class="pl__col"><div class="pl__h">Tomorrow</div>
-              <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
-              <div class="pl__r"><span class="t">⏳</span> Pipeline refactor notes</div>
-            </div>
-          </div>
-          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-        </div>
-        <!-- agenda -->
-        <div class="panel" data-panel="agenda">
-          <div class="ag">
-            <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
-            <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
-            <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
-            <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
-          </div>
-          <div class="panel__hint">n new · e edit · d delete</div>
-          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-        </div>
-        <!-- agents -->
-        <div class="panel" data-panel="agents">
-          <div class="agts">
-            <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
-            <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
-            <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
-          </div>
-          <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-        </div>
-      </div>
+    <div class="term term--hero term--media">
+      <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard · the whole dashboard</span></div>
+      <video class="vid" data-autoplay src="assets/media/zones.mp4" poster="assets/media/zones.jpg" autoplay muted loop playsinline preload="metadata" width="2034" height="1040" aria-label="tuiboard dashboard: Shift-Tab moves through the planner, the board, the agenda and the agents list"></video>
     </div>
-    <p class="term__cap">live mock — click a tab, or press <kbd>?</kbd> for keys</p>
+    <p class="term__cap">the real app, not a mockup · <kbd>⇧Tab</kbd> walks the four zones</p>
   </div>
 </header>
 
@@ -169,6 +107,7 @@
     <span class="ticker__item"><span class="okx">[ ok ]</span> zero lock-in — open them in Obsidian, VS Code, vim</span>
     <span class="ticker__item"><span class="okx">[ ok ]</span> obsidian tasks vocabulary — ⏳ 📅 ✅ 🔼</span>
     <span class="ticker__item"><span class="okx">[ ok ]</span> bring your own creds — tokens stay local</span>
+    <span class="ticker__item"><span class="okx">[ ok ]</span> four agent harnesses — Claude Code · Codex · OpenCode · Pi</span>
     <span class="ticker__item"><span class="okx">[ ok ]</span> cross-platform — Linux · macOS · Windows</span>
     <span class="ticker__item"><span class="okx">[ ok ]</span> MIT licensed — keyboard-first, full mouse support</span>
   </div>
@@ -180,11 +119,10 @@
     <div class="term termframe showcase__frame" data-reveal>
       <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — the whole dashboard</span></div>
       <div class="showcase__img">
-        <img src="assets/dashboard.jpg" alt="tuiboard full dashboard — kanban board, Today/Tomorrow planner, 24-hour agenda with calendar overlay, and live Claude Code agents, all in one terminal" loading="lazy" width="1600" height="873" onerror="this.closest('.showcase__img').classList.add('is-empty')" />
-        <span class="shot__placeholder">[ screenshot: full dashboard ]</span>
+        <img src="assets/media/hero.jpg" alt="tuiboard full dashboard: Today/Tomorrow planner, three kanban columns, a live agents strip with Claude Code, Codex, OpenCode and Pi sessions, and the agenda with overlapping time blocks" loading="lazy" width="2034" height="1040" />
       </div>
     </div>
-    <p class="term__cap">the real thing — all four zones in one terminal</p>
+    <p class="term__cap">the real thing · all four zones in one terminal</p>
   </div>
 </section>
 
@@ -200,20 +138,24 @@
       <ul class="bul">
         <li>Obsidian Tasks emoji vocabulary out of the box — ⏳ scheduled · 📅 due · 🔼 priority · <code>- [x]</code> done</li>
         <li>Multiple boards, switch with a keystroke; filter, reorder, archive</li>
-        <li>Move cards with the keyboard, or drag them with the mouse — your call</li>
+        <li>Grab a card with <code>g</code>, carry it across columns with <code>h</code>/<code>l</code>, drop it with <code>g</code>. Or use the mouse</li>
         <li>The file updates as you go, so your editor and your TUI never disagree</li>
       </ul>
     </div>
     <div class="feat__visual">
-      <div class="codeproof">
-        <div class="codeproof__bar"><span class="term__file">board.md — the whole database</span></div>
-<pre><span class="ln">1</span> ## In Progress
-<span class="ln">2</span> - [ ] Ship v0.8 agenda write 📅 2026-06-12 🔼
-<span class="ln">3</span> - [x] Wire Google OAuth
-<span class="ln">4</span> ## Backlog
-<span class="ln">5</span> - [ ] USD pipeline notes ⏳ 2026-06-20</pre>
+      <div class="term termframe term--media term--portrait">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard · board · grab a card</span></div>
+        <video class="vid" data-autoplay src="assets/media/grab.mp4" poster="assets/media/grab.jpg" muted loop playsinline preload="none" width="960" height="1148" aria-label="A card is grabbed in the Todo column and carried to the Doing column"></video>
       </div>
-      <p class="caption caption--tie">↳ this file <em>is</em> the board in the demo above</p>
+      <div class="codeproof codeproof--tie">
+        <div class="codeproof__bar"><span class="term__file">board.md · the whole database</span></div>
+<pre><span class="ln">1</span> ## Doing
+<span class="ln">2</span> - [ ] Migrate billing ⏫ @Sam ⏳ 2026-09-30
+<span class="ln">3</span> - [ ] Fix the typo in the onboarding email ⏳ 2026-09-28
+<span class="ln">4</span> ## Done
+<span class="ln">5</span> - [x] Merge the dark-mode fix ✅ 2026-09-30</pre>
+      </div>
+      <p class="caption caption--tie">↳ this file <em>is</em> the board above</p>
     </div>
   </div>
 </section>
@@ -223,24 +165,9 @@
   <span class="ghost ghost--r" aria-hidden="true">02</span>
   <div class="feat__grid wrap" data-reveal-group>
     <div class="feat__visual">
-      <div class="term termframe">
-        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — planner · today / tomorrow</span></div>
-        <div class="term__body term__body--auto">
-          <div class="panel is-active">
-            <div class="pl">
-              <div class="pl__col"><div class="pl__h">Today</div>
-                <div class="pl__r"><span class="t">09:00</span> Ship v0.8 agenda write</div>
-                <div class="pl__r"><span class="t">14:30</span> Record demo video</div>
-                <div class="pl__r"><span class="t">⏳</span> Reply on PR #42</div>
-              </div>
-              <div class="pl__col"><div class="pl__h">Tomorrow</div>
-                <div class="pl__r"><span class="t">📅</span> Asset export handoff</div>
-                <div class="pl__r"><span class="t">⏳</span> Pipeline refactor notes</div>
-              </div>
-            </div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
-        </div>
+      <div class="term termframe term--media term--portrait">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard · planner · today / tomorrow</span></div>
+        <video class="vid" data-autoplay src="assets/media/planner.mp4" poster="assets/media/planner.jpg" muted loop playsinline preload="none" width="960" height="1148" aria-label="A late task is pulled into today with t, one is ticked off with Enter, one is sent to tomorrow with m"></video>
       </div>
     </div>
     <div class="feat__copy">
@@ -250,7 +177,8 @@
       <ul class="bul">
         <li>Aggregates ⏳ scheduled + 📅 due across all boards</li>
         <li>Today / Tomorrow split, sorted and de-duplicated</li>
-        <li>Stays in sync — edit a card anywhere and the planner updates</li>
+        <li>Triage from the keyboard: <code>t</code> pulls a late task into today, <code>⏎</code> ticks it off, <code>m</code> sends it to tomorrow</li>
+        <li>Mark several with <code>Space</code> and one key acts on all of them</li>
         <li>Pure opt-in: run tuiboard as a plain kanban and never see it</li>
       </ul>
     </div>
@@ -263,37 +191,26 @@
   <div class="wrap">
     <div class="feat__head" data-reveal-group>
       <p class="eyebrow">03 · 24-hour agenda</p>
-      <h2>A real agenda — that writes back to your calendar.</h2>
+      <h2>A day you can drag around.</h2>
     </div>
     <div class="callout" data-reveal>
-      <span class="callout__tag"><span class="callout__dot" aria-hidden="true">●</span> new in v0.8</span>
-      <span>two-way Google Calendar: create · edit · delete events without leaving the terminal.</span>
+      <span class="callout__tag"><span class="callout__dot" aria-hidden="true">●</span> new in v0.15</span>
+      <span>drag a block to move it, drag its bottom edge to resize it. A "To place" tray holds today's tasks that have no hour yet.</span>
     </div>
     <div class="feat__grid wrap--flush" data-reveal-group>
       <div class="feat__copy">
-        <p>The agenda lays your day on a 24-hour rail and overlays your Google or Microsoft 365 events on your scheduled tasks. As of v0.8 it's two-way — create, edit and delete Google events inline: title, time, date, all-day, target calendar. Your tokens stay on your machine, and write access is opt-in.</p>
+        <p>The agenda lays your day on a ruler, 15 minutes a row, with your scheduled tasks as boxed blocks. Blocks that overlap get their own lanes, blocks that touch share an edge, and a line marks now. It overlays your Google or Microsoft 365 events and, since v0.8, writes back to Google Calendar. Your tokens stay on your machine.</p>
         <ul class="bul">
-          <li>Google + Microsoft 365 events overlaid on a 24h timeline</li>
-          <li>Create / edit / delete Google events inline — keys: <code>n</code> new · <code>e</code> edit · <code>d</code> delete</li>
-          <li>Pick target calendar, time, date, all-day flag</li>
-          <li>Bring-your-own-credentials, stored locally, write scope opt-in</li>
+          <li>Double-click a block to arm it, drag it to move it, drag the bottom edge to resize. Double-click again to keep it</li>
+          <li>The "To place" tray: arm a task with no hour, click the slot where it goes, nudge it with <code>j</code>/<code>k</code></li>
+          <li>No mouse needed: <code>c</code> arms a task and the first <code>j</code>/<code>k</code> drops it in the first free half hour</li>
+          <li>Flip days with <code>[</code> and <code>]</code>, jump back with <code>\</code>. Create, edit and delete Google events inline</li>
         </ul>
       </div>
       <div class="feat__visual">
-        <div class="term termframe termframe--flagship">
-          <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agenda · 24h</span></div>
-          <div class="term__body term__body--auto">
-            <div class="panel is-active">
-              <div class="ag">
-                <div class="ag__row"><span class="ag__t">09</span><span class="ag__ev ev--g">Standup · Google</span></div>
-                <div class="ag__row"><span class="ag__t">11</span><span class="ag__rail"></span></div>
-                <div class="ag__row"><span class="ag__t">14</span><span class="ag__ev ev--m">Review · M365</span></div>
-                <div class="ag__row"><span class="ag__t">16</span><span class="ag__ev ev--g">1:1 · Google</span></div>
-              </div>
-              <div class="panel__hint">n new · e edit · d delete</div>
-              <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-            </div>
-          </div>
+        <div class="term termframe termframe--flagship term--media term--portrait">
+          <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard · agenda · drag and resize</span></div>
+          <video class="vid" data-autoplay src="assets/media/drag.mp4" poster="assets/media/drag.jpg" muted loop playsinline preload="none" width="960" height="1458" aria-label="A time block is armed with a double click, dragged down the ruler, then stretched by its bottom edge"></video>
         </div>
       </div>
     </div>
@@ -305,32 +222,49 @@
   <span class="ghost ghost--r" aria-hidden="true">04</span>
   <div class="feat__grid wrap" data-reveal-group>
     <div class="feat__visual">
-      <div class="term termframe">
-        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard — agents · sessions</span></div>
-        <div class="term__body term__body--auto">
-          <div class="panel is-active">
-            <div class="agts">
-              <div class="agts__r"><span class="dot"></span> tuiboard <span class="br">main</span> <span class="ago">1m</span></div>
-              <div class="agts__r"><span class="dot"></span> api-gateway <span class="br">feat/auth</span> <span class="ago">4m</span></div>
-              <div class="agts__r"><span class="dot"></span> docs-site <span class="br">main</span> <span class="ago">12m</span></div>
-              <div class="agts__r is-sel"><span class="dot"></span> notes-cli <span class="br">main</span> <span class="resume">↵ resume</span></div>
-            </div>
-            <div class="panel__prompt">$ <span class="cursor" aria-hidden="true">▋</span></div>
-          </div>
-        </div>
+      <div class="term termframe term--media term--portrait">
+        <div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tuiboard · agents · filter by harness</span></div>
+        <video class="vid" data-autoplay src="assets/media/filter.mp4" poster="assets/media/filter.jpg" muted loop playsinline preload="none" width="960" height="1148" aria-label="A list of agent sessions, then filtered to Claude Code, Codex, OpenCode and Pi in turn"></video>
       </div>
     </div>
     <div class="feat__copy">
       <p class="eyebrow">04 · live agents</p>
-      <h2>Resume every Claude Code session you're running.</h2>
-      <p>tuiboard finds your local Claude Code sessions and shows them live — status, git branch, last activity. Hit Enter on a row and you're back in that session. Your board, your day, and your agents in one window.</p>
+      <h2>Every coding agent you run, in one list.</h2>
+      <p>tuiboard reads the sessions your agents already keep on disk: Claude Code, Codex, OpenCode and Pi. Each row says who is busy, who is waiting on you and who finished, with the model, the git branch and the folder. Hit Enter and you are back in that session. Nothing to install, nothing to connect.</p>
       <ul class="bul">
-        <li>Live status, git branch, and last-activity per session</li>
-        <li>Press <code>↵</code> to resume any session in place</li>
-        <li>Configurable resume command (e.g. open in WezTerm)</li>
-        <li>Local-only — nothing leaves your machine</li>
+        <li>Four harnesses, one list: <code>cc</code> Claude Code · <code>cx</code> Codex · <code>oc</code> OpenCode · <code>pi</code> Pi. <code>f</code> filters by harness</li>
+        <li>Status at a glance: <code>×</code> waiting for you · <code>◐</code> working · <code>✓</code> done · <code>○</code> idle</li>
+        <li>Press <code>↵</code> to resume a session, or <code>H</code> to jump to it in <a href="https://herdr.dev" target="_blank" rel="noopener">herdr</a></li>
+        <li>Read-only and local: nothing leaves your machine</li>
       </ul>
       <p class="maker">This is the panel that started it all — built to run my own multi-agent days.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DETAILS ============================ -->
+<section class="details" id="details">
+  <div class="wrap">
+    <div class="feat__head" data-reveal-group>
+      <p class="eyebrow">the small things</p>
+      <h2>Made for keyboards. Nice with a mouse.</h2>
+    </div>
+    <div class="details__grid" data-reveal-group>
+      <figure class="detail">
+        <div class="term termframe term--media"><div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">tray</span></div>
+          <video class="vid" data-autoplay src="assets/media/tray.mp4" poster="assets/media/tray.jpg" muted loop playsinline preload="none" width="960" height="1458" aria-label="A task with no hour is armed from the tray, placed with a click and nudged with the keyboard"></video></div>
+        <figcaption><b>From the tray to the clock.</b> Arm a task, click a slot, nudge it, <code>⏎</code> keeps it.</figcaption>
+      </figure>
+      <figure class="detail">
+        <div class="term termframe term--media"><div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">days</span></div>
+          <video class="vid" data-autoplay src="assets/media/days.mp4" poster="assets/media/days.jpg" muted loop playsinline preload="none" width="960" height="1458" aria-label="The agenda moves to tomorrow, the day after, then back to today"></video></div>
+        <figcaption><b>Flip days.</b> <code>[</code> <code>]</code> move the agenda, <code>\</code> is back to today.</figcaption>
+      </figure>
+      <figure class="detail">
+        <div class="term termframe term--media"><div class="term__bar"><span class="term__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="term__file">multi-select</span></div>
+          <video class="vid" data-autoplay src="assets/media/multi.mp4" poster="assets/media/multi.jpg" muted loop playsinline preload="none" width="960" height="1148" aria-label="Three late tasks are marked with Space, then one key moves all of them to today"></video></div>
+        <figcaption><b>One key, many tasks.</b> <code>Space</code> marks, then <code>t</code>, <code>m</code>, <code>s</code> act on all.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -339,12 +273,12 @@
 <section class="compose">
   <div class="wrap compose__inner" data-reveal-group>
     <h2>One board, or all four. Your call.</h2>
-    <p class="sub">Start as a plain kanban. Switch on the planner when you want a daily focus, the agenda when you live by your calendar, the agents panel when you're deep in Claude Code. Any mix — it's the same markdown underneath.</p>
+    <p class="sub">Start as a plain kanban. Switch on the planner when you want a daily focus, the agenda when you live by your calendar, the agents panel when you run Claude Code, Codex, OpenCode or Pi. Any mix. It's the same markdown underneath.</p>
     <div class="toggles" data-toggles>
       <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> kanban   ......  always on</button>
       <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> planner  ......  today / tomorrow</button>
       <button class="tgrow" type="button" data-on="1" aria-pressed="true"><span class="tg">[x]</span> agenda   ......  24h + calendar</button>
-      <button class="tgrow" type="button" data-on="0" aria-pressed="false"><span class="tg">[ ]</span> agents   ......  claude code sessions</button>
+      <button class="tgrow" type="button" data-on="0" aria-pressed="false"><span class="tg">[ ]</span> agents   ......  cc · cx · oc · pi sessions</button>
     </div>
     <p class="caption">flip panels on and off — your layout, your call. (yes, these click.)</p>
   </div>
@@ -400,7 +334,7 @@
 <section class="final">
   <div class="wrap final__inner" data-reveal-group>
     <h2>Plain text in. Your day, organized.<br />Nothing locked away.<span class="cursor" aria-hidden="true">▋</span></h2>
-    <p class="sub">Run it as a pure kanban, or turn on the planner, agenda, and agents one at a time. Your board, your files, your terminal.</p>
+    <p class="sub">Run it as a pure kanban, or turn on the planner, agenda and agents one at a time. Your board, your files, your terminal.</p>
     <div class="install-line install-line--center" data-copy-root>
       <code class="install-line__code"><span class="prompt">$</span> bun install -g <span class="pkg">tuiboard</span></code>
       <button class="copybtn" type="button" data-copy="bun install -g tuiboard" aria-label="Copy install command">[ copy ]</button>
@@ -432,14 +366,15 @@
 
 <!-- ============================ BOTTOM BAR ============================ -->
 <div class="bar bar--bottom">
-  <span class="bar__seg bar__seg--dim">tuiboard <span class="okx">v<span data-version>0.8.3</span></span></span>
+  <span class="bar__seg bar__seg--dim">tuiboard <span class="okx">v<span data-version>0.15.0</span></span></span>
   <nav class="bar__panes" aria-label="Sections" data-panes>
     <a href="#intro" data-pane="intro">1:intro</a>
     <a href="#board" data-pane="board">2:board</a>
     <a href="#day" data-pane="day">3:day</a>
-    <a href="#cal" data-pane="cal">4:cal</a>
+    <a href="#cal" data-pane="cal">4:agenda</a>
     <a href="#agents" data-pane="agents">5:agents</a>
-    <a href="#install" data-pane="install">6:get</a>
+    <a href="#details" data-pane="details">6:details</a>
+    <a href="#install" data-pane="install">7:get</a>
   </nav>
   <span class="bar__spacer"></span>
   <span class="bar__seg bar__seg--dim bar__keys"><kbd>?</kbd> keys</span>
