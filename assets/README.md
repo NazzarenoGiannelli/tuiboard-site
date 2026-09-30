@@ -16,7 +16,6 @@ Copy `demo/out/site/*.mp4` and the `*.png` (as JPEG, quality ~86) into `assets/m
 | File | Where |
 |------|-------|
 | `media/zones.mp4` | hero: Shift-Tab across the four zones |
-| `media/hero.jpg` | "the whole dashboard" showcase |
 | `media/grab.mp4`, `planner.mp4`, `drag.mp4`, `filter.mp4` | sections 01 to 04 |
 | `media/tray.mp4`, `days.mp4`, `multi.mp4` | the small things |
 | `media/*.jpg` | posters (shown while a clip loads, and for reduced motion) |
