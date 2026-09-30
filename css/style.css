@@ -312,6 +312,7 @@ html.fx .wordmark.is-on { animation: phosphor .9s steps(6, end) both, breathe 5.
   font-family: var(--disp); font-weight: 400;
   font-size: clamp(26px, 4.6vw, 52px); line-height: 1.14;
   margin: 0 0 18px; color: var(--text);
+  text-wrap: balance; /* on a narrow screen break after a dot, never before one */
 }
 /* CRT chromatic fringe on the headline */
 .glitch {
@@ -431,32 +432,6 @@ html.fx .ticker__track.is-marquee {
 }
 html.fx .ticker:hover .ticker__track.is-marquee { animation-play-state: paused; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-/* ============================================================
-   SHOWCASE — the one real screenshot
-   ============================================================ */
-.showcase { padding: clamp(48px, 8vh, 96px) 0 clamp(40px, 7vh, 80px); position: relative; z-index: 1; }
-.showcase__frame {
-  max-width: 1000px; margin-inline: auto;
-  box-shadow:
-    0 0 0 1px var(--hair),
-    0 40px 110px -45px rgba(126, 182, 214, 0.5),
-    0 0 90px -22px rgba(234, 246, 173, 0.12);
-  transition: transform .5s ease, box-shadow .5s ease;
-}
-html.fx .showcase__frame:hover {
-  transform: perspective(1400px) rotateX(1.2deg) translateY(-4px);
-  box-shadow:
-    0 0 0 1px var(--hair-2),
-    0 60px 130px -45px rgba(126, 182, 214, 0.6),
-    0 0 110px -22px rgba(234, 246, 173, 0.18);
-}
-.showcase__img { position: relative; width: 100%; background: var(--bg); }
-.showcase__img img { display: block; width: 100%; height: auto; }
-.showcase__img.is-empty { aspect-ratio: 1600 / 873; }
-.showcase__img.is-empty img { display: none; }
-.shot__placeholder { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; color: var(--dimmer); font-size: 13px; }
-.showcase__img.is-empty .shot__placeholder { display: flex; }
 
 /* ============================================================
    FEATURES — asymmetric panes + ghost numbers
@@ -610,7 +585,7 @@ html.fx [data-reveal-group].is-in > *:nth-child(4) { transition-delay: .21s; }
    REAL RECORDINGS — the app itself, in place of mockups
    ============================================================ */
 .term--media { background: #0c0e16; }
-.vid, .showcase__img img { display: block; width: 100%; height: auto; background: #0c0e16; }
+.vid { display: block; width: 100%; height: auto; background: #0c0e16; }
 /* a portrait recording of a narrow terminal: never taller than a screen */
 .term--portrait { max-width: 500px; margin-inline: auto; }
 .codeproof--tie { margin-top: 18px; max-width: 500px; margin-inline: auto; }
