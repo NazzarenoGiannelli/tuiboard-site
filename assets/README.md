@@ -23,3 +23,5 @@ Copy `demo/out/site/*.mp4` and the `*.png` (as JPEG, quality ~86) into `assets/m
 | `media/og.jpg` | social preview |
 
 `fonts/` holds self-hosted JetBrains Mono and Departure Mono (woff2, Latin subset).
+
+**Cache:** Cloudflare keeps `css/` and `js/` for 4 hours (`max-age=14400`). After changing either, bump the `?v=` on the links in `index.html` and `404.html`, or visitors get the new page with the old script.
