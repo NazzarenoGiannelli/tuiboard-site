@@ -115,7 +115,7 @@
   }
 
   /* ================= live version (always) ================= */
-  var version = "0.8.3";
+  var version = "0.15.0";
   (function () {
     var nodes = document.querySelectorAll("[data-version]");
     if (nodes.length) version = nodes[0].textContent.trim() || version;
@@ -196,6 +196,31 @@
       }, { threshold: 0.2 }).observe(term);
     }
   }
+
+  /* ================= recordings: play only while on screen ================= */
+  (function () {
+    var vids = Array.prototype.slice.call(document.querySelectorAll("video[data-autoplay]"));
+    if (!vids.length) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    vids.forEach(function (v) { v.muted = true; });
+    if (reduce) {
+      // no motion unless asked for: the poster shows, the controls are there
+      vids.forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
+      return;
+    }
+    if (!("IntersectionObserver" in window)) {
+      vids.forEach(function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      return;
+    }
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.25 });
+    vids.forEach(function (v) { io.observe(v); });
+  })();
 
   /* ================= ticker marquee (fx only) ================= */
   var tickerInited = false;

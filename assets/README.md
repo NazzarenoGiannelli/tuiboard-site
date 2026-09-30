@@ -1,19 +1,25 @@
 # Assets
 
-The feature sections use built-in faux-terminal panels (no images needed), so
-the landing needs **just one image**:
-
-| File | Where | Notes |
-|------|-------|-------|
-| `dashboard.jpg` | the full-width "the whole dashboard" showcase **and** the social/OG preview | The full tuiboard dashboard (same hero shot as the GitHub README), resized to 1600px and optimized (~200 KB). |
-
-It's already in place. To refresh it, drop a new dashboard screenshot and
-re-optimize, e.g.:
+The pictures and clips on the page are the real app: tuiboard's own headless renderer,
+recorded on an invented demo board (Sam, Mia, nimbus.app, invented agent sessions), so nothing
+on screen is a real board, path or session. They are generated in the tuiboard repo:
 
 ```bash
-ffmpeg -y -i source.png -vf "scale=1600:-1:flags=lanczos" -map_metadata -1 -q:v 3 dashboard.jpg
+cd ../tuiboard
+bun run demo:shots                       # frames -> images and video
+python demo/shots/render.py --site       # the terminal alone, for this page (demo/out/site/)
 ```
 
-A background-free terminal-only PNG can be swapped in later for a glow treatment.
+Copy `demo/out/site/*.mp4` and the `*.png` (as JPEG, quality ~86) into `assets/media/`.
+`og.jpg` is the gradient hero picture (`demo/out/images/hero.png`) cropped to 1200x630.
 
-`fonts/` holds self-hosted JetBrains Mono (woff2, 400/500/700, Latin subset).
+| File | Where |
+|------|-------|
+| `media/zones.mp4` | hero: Shift-Tab across the four zones |
+| `media/hero.jpg` | "the whole dashboard" showcase |
+| `media/grab.mp4`, `planner.mp4`, `drag.mp4`, `filter.mp4` | sections 01 to 04 |
+| `media/tray.mp4`, `days.mp4`, `multi.mp4` | the small things |
+| `media/*.jpg` | posters (shown while a clip loads, and for reduced motion) |
+| `media/og.jpg` | social preview |
+
+`fonts/` holds self-hosted JetBrains Mono and Departure Mono (woff2, Latin subset).
