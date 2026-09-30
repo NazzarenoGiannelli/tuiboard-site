@@ -17,6 +17,7 @@ Copy `demo/out/site/*.mp4` and the `*.png` (as JPEG, quality ~86) into `assets/m
 |------|-------|
 | `media/zones.mp4` | hero: Shift-Tab across the four zones |
 | `media/grab.mp4`, `planner.mp4`, `drag.mp4`, `filter.mp4` | sections 01 to 04 |
+| `media/tuiboard-film.mp4`, `film-poster.jpg` | the film section under the hero (web encode of the launch film, made in the tuiboard repo: `demo/promo/`) |
 | `media/tray.mp4`, `days.mp4`, `multi.mp4` | the small things |
 | `media/*.jpg` | posters (shown while a clip loads, and for reduced motion) |
 | `media/og.jpg` | social preview |

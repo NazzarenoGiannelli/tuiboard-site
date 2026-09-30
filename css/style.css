@@ -599,3 +599,12 @@ html.fx [data-reveal-group].is-in > *:nth-child(4) { transition-delay: .21s; }
 .detail { margin: 0; min-width: 0; }
 .detail figcaption { margin-top: 14px; color: var(--dim); font-size: 13.5px; line-height: 1.6; }
 .detail figcaption b { color: var(--text); font-weight: 500; }
+
+/* ---- the film: a poster, and a play button that starts it with sound ---- */
+.film { padding: clamp(56px, 9vh, 110px) 0 clamp(20px, 4vh, 50px); position: relative; z-index: 1; }
+.film .feat__head { text-align: center; }
+.film__frame { max-width: 1000px; margin-inline: auto; }
+.film__player { position: relative; background: #05080f; }
+.film__player video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #05080f; }
+.film__play { position: absolute; left: 50%; top: 80%; transform: translate(-50%, -50%); } /* under the poster's headline, not over it */
+.film__play[hidden] { display: none; }
